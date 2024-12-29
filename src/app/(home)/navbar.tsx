@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { SearchInput } from "./search-input";
 
@@ -12,8 +13,11 @@ export function Navbar() {
         </Link>
         <h3 className="text-xl">Docs</h3>
       </div>
-      <SearchInput />
-      <div/>
+
+      <Suspense>
+        <SearchInput />
+      </Suspense>
+      <div />
     </nav>
   );
 }
