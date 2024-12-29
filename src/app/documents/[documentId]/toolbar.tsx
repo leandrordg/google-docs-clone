@@ -36,6 +36,7 @@ import {
   Italic,
   Link2,
   List,
+  ListCollapse,
   ListTodo,
   LucideIcon,
   MessageSquarePlus,
@@ -51,6 +52,58 @@ import {
   Undo2,
   Upload,
 } from "lucide-react";
+
+function LineHeightButton() {
+  const { editor } = useEditorStore();
+
+  const lineHeights = [
+    {
+      label: "Padrão",
+      value: "normal",
+    },
+    {
+      label: "1",
+      value: "1",
+    },
+    {
+      label: "1.15",
+      value: "1.15",
+    },
+    {
+      label: "1.5",
+      value: "1.5",
+    },
+    {
+      label: "2",
+      value: "2",
+    },
+  ];
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 w-7 flex flex-col gap-y-0.5 items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden shrink-0">
+          <ListCollapse className="size-4" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+        {lineHeights.map(({ label, value }) => (
+          <button
+            key={value}
+            onClick={() => editor?.chain().focus().setLineHeight(value).run()}
+            className={cn(
+              "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+              editor?.getAttributes("paragraph").lineHeight === value &&
+                "bg-neutral-200/80"
+            )}
+          >
+            <span className="text-sm">{label}</span>
+          </button>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 function FontSizeButton() {
   const { editor } = useEditorStore();
@@ -432,7 +485,7 @@ function HeadingLevelButton() {
   ];
 
   const getCurrentHeading = () => {
-    for (let heading of headings) {
+    for (const heading of headings) {
       if (editor?.isActive(`heading`, { level: heading.value })) {
         return `Título ${heading.value}`;
       }
@@ -617,7 +670,6 @@ export function Toolbar() {
         label: "Comment",
         icon: MessageSquarePlus,
         onClick: () => console.log("Comment"),
-        isActive: false, // TODO: Implement isActive for Comment
       },
       {
         label: "List Todo",
@@ -629,7 +681,6 @@ export function Toolbar() {
         label: "Remove Formatting",
         icon: RemoveFormatting,
         onClick: () => editor?.chain().focus().unsetAllMarks().run(),
-        isActive: false, // TODO: Implement isActive for Remove Formatting
       },
     ],
   ];
@@ -660,7 +711,7 @@ export function Toolbar() {
       <LinkButton />
       <ImageButton />
       <AlignButton />
-      {/* TODO: Line height */}
+      <LineHeightButton />
       <ListButton />
 
       {sections[2].map((button, index) => (
