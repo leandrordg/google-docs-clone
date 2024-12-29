@@ -98,7 +98,7 @@ body {
       outline: 3px solid var(--purple);
     }
   }
-  
+
   /* Table-specific styling */
   table {
     border-collapse: collapse;
@@ -130,7 +130,10 @@ body {
     .selectedCell:after {
       background: var(#a8a8a8);
       content: "";
-      left: 0; right: 0; top: 0; bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
       pointer-events: none;
       position: absolute;
       z-index: 2;
@@ -165,32 +168,30 @@ body {
   h5,
   h6 {
     line-height: 1.1;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     text-wrap: pretty;
-  }
-
-  h1,
-  h2 {
-    margin-top: 3.5rem;
-    margin-bottom: 1.5rem;
+    font-weight: 600;
   }
 
   h1 {
-    font-size: 1.4rem;
+    font-size: 2rem;
   }
 
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   h3 {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
   }
 
-  h4,
-  h5,
-  h6 {
-    font-size: 1rem;
+  h4 {
+    font-size: 1.125rem;
+  }
+
+  h5 {
+    font-size: 1;
   }
 
   /* List styles */
