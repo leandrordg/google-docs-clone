@@ -10,6 +10,8 @@ import { Heading } from "@tiptap/extension-heading";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Image } from "@tiptap/extension-image";
 import { Table } from "@tiptap/extension-table";
+import { Link } from "@tiptap/extension-link";
+import { TextAlign } from "@tiptap/extension-text-align";
 import { TableCell } from "@tiptap/extension-table-cell";
 import { TableHeader } from "@tiptap/extension-table-header";
 import { TableRow } from "@tiptap/extension-table-row";
@@ -19,6 +21,7 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import { Underline } from "@tiptap/extension-underline";
 import { StarterKit } from "@tiptap/starter-kit";
 import { ImageResize } from "tiptap-extension-resize-image";
+import { FontSizeExtension } from "@/extensions/font-size";
 
 export function Editor() {
   const { setEditor } = useEditorStore();
@@ -71,6 +74,15 @@ export function Editor() {
       Heading,
       Highlight.configure({ multicolor: true }),
       Color,
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        defaultProtocol: "https",
+      }),
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
+      FontSizeExtension,
     ],
     content: `
         <table>
