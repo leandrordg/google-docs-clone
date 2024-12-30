@@ -4,6 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
 import { TemplatesGallery } from "./templates-gallery";
 
+import { FullscreenLoader } from "@/components/fullscreen-loader";
 import { Navbar } from "./navbar";
 
 export default function Page() {
@@ -12,7 +13,7 @@ export default function Page() {
   if (documents === undefined) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
-        <p>Carregando...</p>
+        <FullscreenLoader />
       </div>
     );
   }

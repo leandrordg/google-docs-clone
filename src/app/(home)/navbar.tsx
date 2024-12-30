@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+import { UserButton } from "@clerk/clerk-react";
+
 import { SearchInput } from "./search-input";
 
 export function Navbar() {
@@ -17,7 +19,8 @@ export function Navbar() {
       <Suspense>
         <SearchInput />
       </Suspense>
-      <div />
+
+      <UserButton />
     </nav>
   );
 }
