@@ -1,6 +1,7 @@
 import { PaginationStatus } from "convex/react";
 import { Doc } from "../../../convex/_generated/dataModel";
 
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -18,7 +19,11 @@ interface DocumentsTableProps {
   status: PaginationStatus;
 }
 
-export function DocumentsTable({ documents }: DocumentsTableProps) {
+export function DocumentsTable({
+  documents,
+  loadMore,
+  status,
+}: DocumentsTableProps) {
   return (
     <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-5">
       {documents === undefined ? (
@@ -57,6 +62,17 @@ export function DocumentsTable({ documents }: DocumentsTableProps) {
           )}
         </Table>
       )}
+
+      <div className="flex items-center justify-center">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => loadMore(5)}
+          disabled={status !== "CanLoadMore"}
+        >
+          {status === "CanLoadMore" ? "Carregar mais" : "Sem mais documentos."}
+        </Button>
+      </div>
     </div>
   );
 }

@@ -2,10 +2,10 @@
 
 import { usePaginatedQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { TemplatesGallery } from "./templates-gallery";
 
 import { DocumentsTable } from "./documents-table";
 import { Navbar } from "./navbar";
+import { TemplatesGallery } from "./templates-gallery";
 
 export default function Page() {
   const { results, status, loadMore } = usePaginatedQuery(
