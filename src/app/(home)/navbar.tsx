@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton } from "@clerk/nextjs";
 
 import { SearchInput } from "./search-input";
 
