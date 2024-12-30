@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import { useMutation } from "convex/react";
+import { toast } from "sonner";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 
@@ -40,7 +41,13 @@ export function RenameDialog({
     setIsUpdating(true);
 
     update({ id: documentId, title: title.trim() || "Sem título" })
-      .then(() => setOpen(false))
+      .then(() => {
+        setOpen(false);
+        toast.success("Documento renomeado com sucesso.");
+      })
+      .catch(() => {
+        toast.error("Erro ao renomear documento.");
+      })
       .finally(() => setIsUpdating(false));
   };
 

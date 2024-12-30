@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { useEditorStore } from "@/store/use-editor-store";
+import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 
 import {
   Menubar,
@@ -254,6 +255,16 @@ export function Navbar() {
             </Menubar>
           </div>
         </div>
+      </div>
+
+      <div className="flex gap-3 items-center">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
       </div>
     </nav>
   );

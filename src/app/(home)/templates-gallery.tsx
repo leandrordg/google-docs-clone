@@ -15,6 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { toast } from "sonner";
 
 export function TemplatesGallery() {
   const router = useRouter();
@@ -25,8 +26,10 @@ export function TemplatesGallery() {
     setIsCreating(true);
     create({ title, initialContent })
       .then((documentId) => {
+        toast.success("Documento criado com sucesso!");
         router.push(`/documents/${documentId}`);
       })
+      .catch(() => toast.error("Erro ao criar documento."))
       .finally(() => {
         setIsCreating(false);
       });

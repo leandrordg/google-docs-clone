@@ -33,7 +33,7 @@ export function DocumentRow({ document }: DocumentRowProps) {
         ) : (
           <CircleUser className="size-4" />
         )}
-        {document.organizationId ? "Compartilhado" : "Pessoal"}
+        {document.organizationId ? "Organização" : "Pessoal"}
       </TableCell>
       <TableCell className="text-muted-foreground hidden md:table-cell">
         {format(new Date(document._creationTime), "dd 'de' MMM 'de' yyyy.", {
