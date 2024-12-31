@@ -37,6 +37,7 @@ import {
   Undo2,
 } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
+import { Avatars } from "./avatars";
 import { DocumentInput } from "./document-input";
 
 export function Navbar() {
@@ -258,12 +259,15 @@ export function Navbar() {
       </div>
 
       <div className="flex gap-3 items-center">
+        <Avatars />
+
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"
           afterSelectOrganizationUrl="/"
           afterSelectPersonalUrl="/"
         />
+
         <UserButton />
       </div>
     </nav>
