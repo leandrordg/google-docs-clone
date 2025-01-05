@@ -2,9 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
+import { useMutation } from "convex/react";
+import { toast } from "sonner";
+import { api } from "../../../../convex/_generated/api";
+import { Doc } from "../../../../convex/_generated/dataModel";
 
 import {
   Menubar,
@@ -40,9 +45,31 @@ import { BsFilePdf } from "react-icons/bs";
 import { Avatars } from "./avatars";
 import { DocumentInput } from "./document-input";
 import { Inbox } from "./inbox";
+import { RenameDialog } from "@/components/rename-dialog";
+import { RemoveDialog } from "@/components/remove-dialog";
 
-export function Navbar() {
+interface NavbarProps {
+  data: Doc<"documents">;
+}
+
+export function Navbar({ data }: NavbarProps) {
+  const router = useRouter();
+
   const { editor } = useEditorStore();
+
+  const mutation = useMutation(api.documents.create);
+
+  const onNewDocument = () => {
+    mutation({
+      title: "Novo documento",
+      initialContent: "",
+    })
+      .then((id) => {
+        toast.success("Documento criado com sucesso!");
+        router.push(`/documents/${id}`);
+      })
+      .catch(() => toast.error("Erro ao criar documento"));
+  };
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
     editor
@@ -67,7 +94,7 @@ export function Navbar() {
     const blob = new Blob([JSON.stringify(json)], {
       type: "application/json",
     });
-    onDownload(blob, `document.json`); //TODO: Add document name
+    onDownload(blob, `${data.title}.json`);
   };
 
   const onSaveHTML = () => {
@@ -75,7 +102,7 @@ export function Navbar() {
 
     const html = editor.getHTML();
     const blob = new Blob([html], { type: "text/html" });
-    onDownload(blob, `document.html`); //TODO: Add document name
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveText = () => {
@@ -83,7 +110,7 @@ export function Navbar() {
 
     const text = editor.getText();
     const blob = new Blob([text], { type: "text/plain" });
-    onDownload(blob, `document.txt`); //TODO: Add document name
+    onDownload(blob, `${data.title}.txt`);
   };
 
   return (
@@ -94,7 +121,7 @@ export function Navbar() {
         </Link>
 
         <div className="flex flex-col">
-          <DocumentInput />
+          <DocumentInput title={data.title} id={data._id} />
 
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
@@ -106,7 +133,7 @@ export function Navbar() {
                   <MenubarSub>
                     <MenubarSubTrigger>
                       <File className="size-4 mr-2" />
-                      Salvar
+                      Exportar
                     </MenubarSubTrigger>
                     <MenubarSubContent>
                       <MenubarItem onClick={onSaveJSON}>
@@ -127,19 +154,29 @@ export function Navbar() {
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem onClick={onNewDocument}>
                     <FilePlus className="size-4 mr-2" />
                     Novo documento
                   </MenubarItem>
                   <MenubarSeparator />
-                  <MenubarItem>
-                    <FilePen className="size-4 mr-2" />
-                    Renomear
-                  </MenubarItem>
-                  <MenubarItem>
-                    <Trash className="size-4 mr-2" />
-                    Remover
-                  </MenubarItem>
+                  <RenameDialog initialTitle={data.title} documentId={data._id}>
+                    <MenubarItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      <FilePen className="size-4 mr-2" />
+                      Renomear
+                    </MenubarItem>
+                  </RenameDialog>
+                  <RemoveDialog documentId={data._id}>
+                    <MenubarItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      <Trash className="size-4 mr-2" />
+                      Remover
+                    </MenubarItem>
+                  </RemoveDialog>
                   <MenubarSeparator />
                   <MenubarItem onClick={() => window.print()}>
                     <Printer className="size-4 mr-2" />
