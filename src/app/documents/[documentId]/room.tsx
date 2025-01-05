@@ -15,7 +15,7 @@ import { getDocuments, getUsers } from "./actions";
 import { FullscreenLoader } from "@/components/fullscreen-loader";
 import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 
-type User = { id: string; name: string; avatar: string };
+type User = { id: string; name: string; avatar: string; color: string };
 
 export function Room({ children }: { children: React.ReactNode }) {
   const params = useParams();

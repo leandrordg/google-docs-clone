@@ -11,7 +11,9 @@ export function Navbar() {
     <nav className="flex items-center justify-between h-full w-full gap-6">
       <div className="flex gap-3 items-center shrink-0">
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={36} height={36} />
+          <div className="relative size-8">
+            <Image src="/logo.svg" alt="Logo" fill />
+          </div>
         </Link>
         <h3 className="text-xl">Docs</h3>
       </div>

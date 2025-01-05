@@ -117,7 +117,9 @@ export function Navbar({ data }: NavbarProps) {
     <nav className="flex items-center justify-between">
       <div className="flex gap-2 items-center">
         <Link href="/">
-          <Image src="/logo.svg" alt="Logo" width={36} height={36} />
+          <div className="relative size-8">
+            <Image src="/logo.svg" alt="Logo" fill />
+          </div>
         </Link>
 
         <div className="flex flex-col">

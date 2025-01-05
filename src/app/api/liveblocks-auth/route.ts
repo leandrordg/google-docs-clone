@@ -31,10 +31,18 @@ export async function POST(req: Request) {
   if (!isOwner && !isOrganizationMember)
     return new Response("Unauthorized", { status: 401 });
 
+  const name =
+    user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anônimo";
+  const nameToNumber = name
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const hue = Math.abs(nameToNumber % 360);
+  const color = `hsl(${hue}, 70%, 50%)`;
+
   const session = liveblocks.prepareSession(user.id, {
     userInfo: {
-      name:
-        user.fullName ?? user.primaryEmailAddress?.emailAddress ?? "Anônimo",
+      name,
+      color,
       avatar: user.imageUrl,
     },
   });

@@ -5,14 +5,12 @@ import { useLiveblocksExtension } from "@liveblocks/react-tiptap";
 import { useStorage } from "@liveblocks/react/suspense";
 import { EditorContent, useEditor } from "@tiptap/react";
 
-// extensions
 import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
 import { Color } from "@tiptap/extension-color";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { Heading } from "@tiptap/extension-heading";
 import { Highlight } from "@tiptap/extension-highlight";
-import { Image } from "@tiptap/extension-image";
 import { Link } from "@tiptap/extension-link";
 import { Table } from "@tiptap/extension-table";
 import { TableCell } from "@tiptap/extension-table-cell";
@@ -79,6 +77,7 @@ export function Editor({ initialContent }: EditorProps) {
     extensions: [
       StarterKit.configure({
         history: false,
+        heading: false,
       }),
       TaskList,
       TaskItem.configure({ nested: true }),
@@ -86,7 +85,6 @@ export function Editor({ initialContent }: EditorProps) {
       TableCell,
       TableHeader,
       TableRow,
-      Image,
       ImageResize,
       Underline,
       FontFamily,
