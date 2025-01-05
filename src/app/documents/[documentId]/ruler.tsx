@@ -3,17 +3,15 @@
 import { useMutation, useStorage } from "@liveblocks/react/suspense";
 import { useRef, useState } from "react";
 
-import {
-  LEFT_MARGIN_DEFAULT,
-  MINIMUM_SPACE,
-  PAGE_WIDTH,
-  RIGHT_MARGIN_DEFAULT,
-} from "@/constants/margins";
+import { LEFT_MARGIN_DEFAULT, RIGHT_MARGIN_DEFAULT } from "@/constants/margins";
 import { FaCaretDown } from "react-icons/fa";
 
 const markers = Array.from({ length: 83 }, (_, i) => i);
 
 export function Ruler() {
+  const PAGE_WIDTH = 816;
+  const MINIMUM_SPACE = 100;
+
   const leftMargin =
     useStorage((root) => root.leftMargin) ?? LEFT_MARGIN_DEFAULT;
   const setLeftMargin = useMutation(({ storage }, position: number) => {
@@ -82,7 +80,7 @@ export function Ruler() {
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      className={`w-[${PAGE_WIDTH}px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden`}
+      className="w-[816px] mx-auto h-6 border-b border-gray-300 flex items-end relative select-none print:hidden"
     >
       <div id="ruler-container" className="w-full h-full relative">
         <Marker
@@ -102,7 +100,7 @@ export function Ruler() {
         />
 
         <div className="absolute inset-x-0 bottom-0 h-full">
-          <div className={`relative h-full w-[${PAGE_WIDTH}px]`}>
+          <div className="relative h-full w-[816px]">
             {markers.map((marker) => {
               const pos = (marker * PAGE_WIDTH) / 82;
 
