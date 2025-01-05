@@ -29,8 +29,15 @@ import { ImageResize } from "tiptap-extension-resize-image";
 import { Ruler } from "./ruler";
 import { Threads } from "./threads";
 
-export function Editor() {
-  const liveblocks = useLiveblocksExtension();
+interface EditorProps {
+  initialContent?: string | undefined;
+}
+
+export function Editor({ initialContent }: EditorProps) {
+  const liveblocks = useLiveblocksExtension({
+    initialContent,
+    offlineSupport_experimental: true,
+  });
   const { setEditor } = useEditorStore();
 
   const leftMargin = useStorage((root) => root.leftMargin);

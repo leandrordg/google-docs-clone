@@ -24,7 +24,7 @@ export function Document({ preloadedDocument }: DocumentProps) {
         </div>
 
         <div className="pt-[128px] print:pt-0">
-          <Editor />
+          <Editor initialContent={document.initialContent} />
         </div>
       </div>
     </Room>
